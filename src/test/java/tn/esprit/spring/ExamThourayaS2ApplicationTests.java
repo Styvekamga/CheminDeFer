@@ -2,6 +2,7 @@ package tn.esprit.spring;
 
 import tn.esprit.spring.entities.Voyage;
 import tn.esprit.spring.repositories.VoyageRepository;
+import tn.esprit.spring.services.VoyageServiceImpl;
 
 import org.junit.Test;
 
