@@ -1,86 +1,89 @@
-package tn.esprit.spring;
+package tn.esprit.spring.services; 
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import tn.esprit.spring.entities.Voyage;
 import tn.esprit.spring.repository.VoyageRepository;
 import tn.esprit.spring.services.VoyageServiceImpl;
 
-import org.junit.Test;
 
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Date;
-
-import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ExamThourayaS2ApplicationTests {
-
-	@Mock
-    VoyageRepository sr;
-    @InjectMocks
-    VoyageServiceImpl ss;
 
     @Mock
     VoyageRepository voyageRepository;
 
-   @InjectMocks
-   VoyageServiceImpl voyageService;
-
-    Voyage p1 = new Voyage(55L, 25L ,"tunis","SOUSSE",new Date(),new Date(),10,12,null,null);
-    Voyage p2 = new Voyage(26L, 25L ,"tunis","SOUSSE",new Date(),new Date(),10,12,null,null);
-
-
-    List<Voyage> listVoyages = new ArrayList<Voyage>() {
-        {
-            add(p1);
-            add(new Voyage(12L, 48L ,"tunis","SOUSSE",new Date(),new Date(),10,12,null,null));
-            add(new Voyage(23L, 25L ,"tunis","SOUSSE",new Date(),new Date(),10,12,null,null));
-        }
-    };
-
-
+    @InjectMocks
+    VoyageServiceImpl voyageService;
 
     @Test
     public void testRetrieveVoyage() {
 
-        Mockito.when(voyageRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(p1));
-        Voyage voyage1 = voyageService.retrieveVoyage(55L);
-        assertNotNull(voyage1);
-        System.out.println("1");
-        assertEquals(voyage1.getIdVoyage(),55L);
-   }
+        Voyage voyage = new Voyage(1L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null);
 
-    @Test
-    public void testretrieveAllVoyages() {
-        Mockito.when(voyageRepository.findAll()).thenReturn(listVoyages);
-        List<Voyage> listvoyage3 = voyageService.retrieveAllVoyages();
-        assertEquals(3, listvoyage3.size());
-        //assertEquals(produit1.getIdProduit(),55L);
-        System.out.println("2555");
+        voyage.setIdVoyage(1L);
+
+        Mockito.when(voyageRepository.findById(1L)).thenReturn(Optional.of(voyage));
+        voyageService.retrieveVoyage(1L);
+        Assertions.assertNotNull(voyage);
+
+        System.out.println(voyage);
+        System.out.println(" Retrieve is working correctly...!!");
+
     }
 
+
     @Test
-    public void testaddVoyage(){
-        Mockito.when(voyageRepository.save(p1)).thenReturn(p1);
-        Voyage voyage1 = voyageService.addVoyage(p1);
-        //assertNotNull(produit1);
-        Mockito.verify(voyageRepository, times(1)).save(Mockito.any(Voyage.class));
-        System.out.println("3");
+   public void createVoyagekTest()
+    {
+        Voyage voyage2 = new Voyage(2L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null);
+        voyage2.setIdVoyage(2L);
+
+        voyageService.addVoyage(voyage2);
+        verify(voyageRepository, times(1)).save(voyage2);
+        System.out.println(voyage2);
+        System.out.println(" Create is working correctly...!!");
     }
+
+
+    @Test
+ public   void getAllVoyageTest()
+    {
+        List<Voyage> Voyagelist = new ArrayList<Voyage>() {
+
+            {
+                add(new Voyage(3L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
+                add(new Voyage(4L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
+                add(new Voyage(5L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
+            }};
+
+
+        when(voyageService.retrieveAllVoyage()).thenReturn(Voyagelist);
+        //test
+        List<Voyage> voyageList = voyageService.retrieveAllVoyage();
+        assertEquals(3, voyageList.size());
+        System.out.println(" Retrieve all is working correctly...!!");
+    }
+
+
+
 
 }
