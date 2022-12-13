@@ -38,7 +38,7 @@ public class ExamThourayaS2ApplicationTests {
     @Test
     public void testRetrieveVoyage() {
 
-        Voyage voyage = new Voyage(1L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null);
+        Voyage voyage = new Voyage(1L, 10L, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null);
 
         voyage.setIdVoyage(1L);
 
@@ -55,7 +55,7 @@ public class ExamThourayaS2ApplicationTests {
     @Test
    public void createVoyagekTest()
     {
-        Voyage voyage2 = new Voyage(2L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null);
+        Voyage voyage2 = new Voyage(2L, 10L, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null);
         voyage2.setIdVoyage(2L);
 
         voyageService.addVoyage(voyage2);
@@ -71,9 +71,9 @@ public class ExamThourayaS2ApplicationTests {
         List<Voyage> Voyagelist = new ArrayList<Voyage>() {
 
             {
-                add(new Voyage(3L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
-                add(new Voyage(4L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
-                add(new Voyage(5L, 100, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
+                add(new Voyage(3L, 10L, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
+                add(new Voyage(4L, 10L, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
+                add(new Voyage(5L, 10L, "tunis", "SOUSSE", new Date(), new Date(), 12, 10, null, null));
             }};
 
 
